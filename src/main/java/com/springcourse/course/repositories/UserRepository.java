@@ -1,8 +1,9 @@
 package com.springcourse.course.repositories;
 
-import com.springcourse.course.entities.Usuario;
+import com.springcourse.course.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<Usuario, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }
+

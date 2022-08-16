@@ -3,10 +3,13 @@ package com.springcourse.course.entities;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Usuario implements Serializable {
+@Table(name = "tb_user")
+public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,15 +22,22 @@ public class Usuario implements Serializable {
     private String phone;
     private String password;
 
-    public Usuario() {
+    @OneToMany(mappedBy = "client")
+    private final List<Order> orders = new ArrayList<>();
+
+    public User() {
     }
 
-    public Usuario(Long id, String name, String email, String phone, String password) {
+    public User(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public Long getId() {
@@ -74,7 +84,7 @@ public class Usuario implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Usuario user = (Usuario) o;
+        User user = (User) o;
         return Objects.equals(id, user.id);
     }
 

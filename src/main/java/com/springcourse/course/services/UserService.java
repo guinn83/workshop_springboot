@@ -1,6 +1,6 @@
 package com.springcourse.course.services;
 
-import com.springcourse.course.entities.Usuario;
+import com.springcourse.course.entities.User;
 import com.springcourse.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<Usuario> findAll() {
+    public List<User> findAll() {
         return repository.findAll();
     }
 
-    public Usuario findById(Long id) {
-        Optional<Usuario> obj = repository.findById(id);
-        return obj.get();
+    public User findById(Long id) {
+        Optional<User> obj = repository.findById(id);
+        return obj.orElse(null);
     }
 }
