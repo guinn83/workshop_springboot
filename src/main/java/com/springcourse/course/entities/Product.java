@@ -1,11 +1,14 @@
 package com.springcourse.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Product implements Serializable {
@@ -22,9 +25,11 @@ public class Product implements Serializable {
     private String imgUrl;
 
     @ManyToMany
-    @JoinTable(name = "tb_product_categories", joinColumns = @JoinColumn(name = "product_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "tb_product_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {
     }
@@ -79,6 +84,13 @@ public class Product implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        return items.stream()
+                .map(OrderItem::getOrder)
+                .collect(Collectors.toSet());
     }
 
     @Override
