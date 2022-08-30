@@ -20,6 +20,6 @@ public class ProductService {
 
     public Product findById(Long id) {
         Optional<Product> obj = repository.findById(id);
-        return obj.orElse(null);
+        return obj.get();
     }
 }

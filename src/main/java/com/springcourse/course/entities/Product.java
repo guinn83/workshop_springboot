@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "tb_product")
 public class Product implements Serializable {
 
     @Serial
